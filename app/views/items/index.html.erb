@@ -1,0 +1,13 @@
+<h1>Items</h1>
+
+<% if @items.empty? %>
+  <p>No items in store</p>
+<% else %>
+
+  <% @items.each do |i| %>
+    <%= @i.name %>
+    <%= @i.description %>
+    <%= @i.price %>
+  <% end %>
+
+<%end%>
