@@ -1,17 +1,18 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+require 'factory_bot_rails'
+require 'faker'
 
-FactoryBot.create(:user, email: 'admin@admin.com', password: '1qaz2wsx', role: 'admin')
-FactoryBot.create(:user, email: 'user1@mail.com', password: '1qaz2wsx', role: 'user')
 
-FactoryBot.create(:item, name: 'item1', description: 'item1 description', price: 100)
-FactoryBot.create(:item, name: 'item2', description: 'item2 description', price: 200)
-FactoryBot.create(:item, name: 'item3', description: 'item3 description', price: 150)
+FactoryBot.create(:user, :admin, email: 'admin@admin.com', password: 'somepass')
 
-# FactoryBot.create_list(:item, 10)
-# FactoryBot.create_list(:user, 5)
+user = FactoryBot.create(:user, :with_cart, email: 'user@user.com', password: 'somepass')
+user2 = FactoryBot.create(:user, :with_cart, password: 'somepass')
+
+FactoryBot.create_list(:item, 5)
+
+items = Item.all
+Position.create(item_id: items[0].id, cart_id: user.cart.id, quantity: 5)
+Position.create(item_id: items[1].id, cart_id: user.cart.id, quantity: 1)
+Position.create(item_id: items[2].id, cart_id: user.cart.id, quantity: 10)
+
+Position.create(item_id: items[0].id, cart_id: user2.cart.id, quantity: 2)
+Position.create(item_id: items[3].id, cart_id: user2.cart.id, quantity: 5)

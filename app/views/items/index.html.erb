@@ -3,11 +3,20 @@
 <% if @items.empty? %>
   <p>No items in store</p>
 <% else %>
-
-  <% @items.each do |i| %>
-    <%= @i.name %>
-    <%= @i.description %>
-    <%= @i.price %>
-  <% end %>
-
-<%end%>
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>Item</th>
+      <th>Description</th>
+      <th>Price</th>
+    </tr>
+    <% @items.each do |i| %>
+    <tr>
+      <td><%= i.id %></td>
+      <td><%= i.name %></td>
+      <td><%= i.description %></td>
+      <td><%= i.price %> $</td>
+    </tr>
+    <% end %>
+  </table>
+<% end %>
